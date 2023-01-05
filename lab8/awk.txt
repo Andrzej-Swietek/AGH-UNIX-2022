@@ -1,0 +1,109 @@
+Wypisz 3 ostatnie linie awk
+awk 'RS==NR-2 || RS == NR-1 || RS == NR  END{ print NR-2, NR-1, NR}' nazwa_pliku
+
+Wypisaze wiersze z wystapieniem patternu
+awk '/regexp/
+
+awk -F":" '{ print $1 $3 /etc/passwd  }'
+
+
+Formatowanie wierszy
+awk -F":" '{ print "username: " $1 "\t\tuid:" $3  }' /etc/etc
+
+
+1. Wykonaj następujące operacje dla pliku lista:
+    1.1 Wypisz na ekran tylko trzecią kolumnę.
+
+    awk '{print $3}' lista
+
+    1.2 Wypisz linie: drugą i od piątej do siódmej.
+
+    awk 'if(NR == 2 || NR >= 5 && NR <= 7) {print}' lista
+
+    1.3 Zsumuj wszystkie liczby w czwartej kolumnie i wypisz sumę oraz średnią na ekran.
+
+    awk '{ sum += $4 } END { print "sum: ", sum, "mean:", sum/NR  }' lista
+
+    1.4 Wypisz tylko te wiersze, których wartości z czwartej kolumny są większe lub równe 50.
+
+    awk '$4 >= 50 { print }' lista
+
+    1.5 Wypisz na ekran dwie kolumny: drugą oraz zsumowane wartości kolumn od 4 do końca.
+
+    awk '{
+        sum=0;
+        for(i=4; i<= NF; i++){
+             sum+=$i; 
+        };
+        print $2, sum 
+    }' lista
+
+    1.6 Znajdź wartość drugiej kolumny której odpowiada najmniejsza wartość czwartej kolumny.
+
+    awk ' 
+        NR == 1 { min=$4; content=$2; }
+        NR > 1 {
+            if( $4 < min ) {
+                min=$4; content=$2;
+            }
+        }
+        END { print $4, $2; }
+    ' lista
+
+
+
+2. Wykonaj następujące operacje dla pliku lista.csv (separatory to średniki):
+    2.1 Wypisz na ekran tylko sumę wszystkich liczb w linii (od kolumny 4)
+
+    awk -F";" '{
+        sum=0;
+        for(i=4; i<= NF; i++){
+             sum+=$i; 
+        };
+        print sum 
+    }' lista.csv
+
+    2.2 Wypisz liczbę niepustych oraz pustych linii, również tych z białymi znakami.
+
+    awk -F";" '{
+        NF==1 { num++ }
+        END { print sum }
+    }' lista.csv
+
+    2.3 Poprzedź każdą z linii liczbą kolumn, które w niej występują i dwukropkiem, np. linia z trzema liczbami powinna zostać zastąpiona:
+     11: Imie19;Nazwisko19;stud19@agh.edu.pl;90;0;95;85;95;88;88;75;
+
+    awk -F";" '{ print NF," : ", $0 }' lista.csv
+
+    2.4 Wypisz na ekran co drugą kolumnę.
+
+    awk -F";" '{
+        text = "";
+        for(i=2;i<=NF;i+=2){
+            text += " " + $i 
+        } 
+        print text
+    }' lista.csv
+
+    2.5 Wypisz na ekran piątą kolumnę od końca.
+
+    awk -F";" '{ print NF-5 }' lista.csv
+
+    2.6 Wypisz najdłuższą i najkrótszą linię w pliku, podając ich długości w czytelnie sformatowanej postaci.
+    2.7 (*) Sprawdź, czy wszystkie wiersze zawierające ten sam e-mail w polu 3 mają dokładnie to samo imię i nazwisko w polach 1 i 2. Na wyjściu należy wyświetlić wszystkie wiersze z wejścia (bez zmian), oraz dodatkowy komunikat dla każdego wiersza, który zawiera e-mail, który wcześniej wystąpił z innym imieniem i/lub nazwiskiem.
+    2.8 (*) Napisz skrypt awk obliczający i wyświetlający na wyjściu dla każdego studenta: imię, nazwisko, e-mail, liczbę znalezionych wyników, wynik sumaryczny, wynik średni, oraz wynik średni obliczony z pominięciem najniższego i najwyższego. Wynik ma być wypisany w następującym formacie:
+Pierwsza linia - nagłówki kolumn (np IMIE, NAZWISKO, LICZBA OCEN, SUMA, SREDNIA)
+Kolejne linie - informacje o kolejnych osobach
+Ostatnia linia - średnia wszystkich średnich z poszczególnych wierszy.
+(*) Napisz skrypt, który dla pliku w formacie csv podanego jako argument wypisuje kolumnę/kolumny zadane jak parametr. np. ./shift 2 1 4 3.
+
+3. (*) Napisz skrypt przekształcający plik postaci:
+<imię> <nazwisko>
+<nr_telefonu>
+<e-mail>
+(pusta linia)
+do postaci (do wyboru):
+a) <imię> <nazwisko> <e-mail>
+b) <nazwisko> <imię> <e-mail> <nr_telefonu>
+Podany wzór się powtarza.
+(*) Wyświetl na ekranie i jednocześnie zapisz do pliku listę zalogowanych użytkowników (polecenie w). Każdy użytkownik  może pojawić się tylko jeden raz, nawet jeśli jest wielokrotnie zalogowany. Wykorzystaj do tego awk, przypomnij sobie polecenie tee.

@@ -1,0 +1,95 @@
+sed '1,3d' plik.txt delete lines 1-3
+sed '/1a/d'   plik          - Usun la z plik
+sed -n /ala/p plik          - wypisze line tylko z ala
+sed -n '1,3p' plik          - tylko 3 linie
+sed -n '1-3!p' plik         - all poza 1-3
+sed -n '/kotek/=' plik      - wypisze wszystkie nr lini gdzie kotekje
+sed -n '/[kK]otek/=' plik   - wypisze wszystkie nr lini gdzie kotekje
+sed -n '/[kK]otek/p' kotek  - wypisz linie z kotkiem
+sed 's/kotek/kocur/'        - zamien p[ierwszy wyraz kotek na kocur do pierwszej w lini
+sed 's/kotek/kocur/g'       - wszystkie kotki na kucury
+sed 's/[.*]/(.*)/g' kotek
+sed -n /\{/,/\}/p             - od znaczku do znaczku
+sed -n /poczatek/,/koniec/  - od sowa pocztaek do slowa koniec
+sed '/start/,/end/ { /ala/d }' - od start do end usun 'ala
+sed '/start/,/end/ { s/ala/alicja/g } - wszystkie ale zamien na alicje
+sed 's/[0-9]\+/ #### & #### /g'  - kazda liczbe zwrapuje w #### - & znaleziona wartosc
+
+Regiony
+echo "Ala ma 23 koty"|sed -E 's/[0-9]+/[&]/'   ===>    Ala ma [23] koty
+echo "Ala ma kota"|sed -E 's/([a-z,A-Z]+).*([a-z]+$)/[/2] & [/1]/g'
+cat index.html | sed -E 's/<body>.*</body>/<BODY>&</BODY>/'
+cat index.html | sed -E 's/<body>(.*)</body>/<BODY>\1</BODY>/'
+cat index.html  | sed -E 's/<li>(.*)<\/li>/<LI>\1<\/LI>/'
+
+
+Przygotuj odpowiedni plik tekstowy z zawartością pliku kotek (~ewao/UNIX). Wszystkie poniższe zadania z wyjątkiem pierwszego podpunktu generują wynik na stdout. Dokumentowanie zadania - patrz punkt 2.
+Za pomocą sed:
+1. zastąp znaki , , znakiem " oraz -- znakiem -, zmień zawartość pliku i wszystkie pozostałe punkty wykonaj na zmienionej wersji,
+sed 's/,,/\"/g;s/--/-/g' kotek > kotek2
+
+
+2. usuń ostatnią linię tekstu,
+sed '$d' kotek
+
+3. usuń wszystkie puste linie (linia może zawierać spacje i tabulatory),
+sed '/^[\t\s].$/d' kotek
+sed '/^$/d kotek -- pusta linia
+
+4. usuń wszystkie puste linie, ale tylko na  początku pliku przed tekstem,
+sed '/^[\t\s]*/d' kotek
+sed '/^$/d' kotek
+sed '/^[\s\t]*/d 
+sed '/\s*/d'
+
+sed '1-3!d' - usun wszystko poza 3 liniami
+
+sed '/[A-Z]/,$!d' kotek - nie usuwaj od 1 litery do konca == usun all przed 1 litera
+
+5. usuń spacje i tabulatory na początku linii,
+sed /1/,/^$/d
+
+6. ujmij wszystkie cyfry i liczby w nawiasy kwadratowe, np [34] [56] [124],
+sed -E 's/[0-9]+/[&]/' kotek
+
+7. dopisz na końcu linii zawierających znaki '-' tekst [DIALOG], poprzedź go tabulatorem,
+sed -E 's/^.*$/ & - [ DIALOG ]/' kotek
+
+8. usuń wszystkie linie pomiędzy liniami zawierającymi słowo <komentarz> i </komentarz>
+sed '/<komentarz>/,/<\/komentarz>/ d' kotek
+
+9. usuń w powyższym regionie tylko linie zawierające spacje,
+
+10. usuń w powyższym regionie tylko linie nie zawierające spacji,
+
+11. zastąp tekst pomiędzy liniami w powyższym regionie liniami pustymi,
+
+(*)12.  wykorzystując regiony wypisz dla 5-25 linii pierwsze i ostatnie słowo w postaci [pierwszy] słowo1     [ostatni] słowo2.
+sed -E '5,25 s/(^[a-z,A-Z]+).*([a-z,A-Z]+$)/[pierwszy] \1 & [ostatni] \2/'  kotek 
+
+WYWOLANIE SED SCRIPT
+
+echo "s/[0-9]+/[&]/" > sed_script && chmod +x sed_script && sed -Ef sed_script kotek
+
+
+Umieść wszystkie powyższe polecenia w pliku sed.sh. Jeśli podpunkt jest niezrobiony, napisz echo BRAK. Napisz skrypt mysed, który jako argument przyjmuje numer linii z pliku sed.sh i wykonuje polecenie z podanej linii.
+Wybierz kilka z podpunktów zadania 1, które wykonają się po kolei i zapisz w postaci wykonywalnego skryptu sed, wykorzystując mechanizm #! tzn, skrypt powinien zawierać tylko polecenia sed, aby można go było wywołać w postaci sed -f mysed.sed, ale aby również możliwe było wywołanie ./mysed.sed
+Napisz skrypt datePL, który przekonwertuje datę (date) z angielskiej na polską, czyli zamieni Jan->Styczen, Feb->Luty, Mar->Marzec, itp, Mon->Poniedzialek, Tue->Wtorek, itp. Wykorzystaj do tego sed.
+Napisz skrypt, który każdego pliku .html (rekurencyjnie, również w podkatalogach):
+(html-a) wypisze tytuł strony - zawartość pomiędzy tagami <title> </title); wynik powinien być generowany w postaci kolejnych linii:
+[sciezka_wzgledna/]plik.html: Tytuł
+(html-b) wypisze cały blok <head> (zakładamy, że <head> i </head> są w różnych liniach
+(*) (html-c) zamieni tekst podany jako pierwszy argument skryptu na tekst podany w drugim argumencie, np,:
+html-c "inż. Anna Kowalska" "mgr inż Anna Kowalska-Nowak"
+Pliki mają zostać zmienione. Wskazówka: skorzystać z plików tymczasowych do przechowywania wyniku.
+(*) (html-d) wyświetli adresy wszystkich obrazków i linków, zakładając, że znacznik jest w tej samej linii, w postaci:
+IMG: http://adres.../plik.jpg
+IMG: plik.png
+LINK: http://adres...
+LINK: plik.html
+(*) (html-e) zamieni zdefiniowany sposób kodowania strony w <meta charset> (nie wiemy jaki) na zadany jako parametr, np z utf-8 na iso=8859-2. Pliki html powinny zostać zmienione. Jeśli nie podamy argumentu, skrypt powinien wyświetlać, jakie znalazł kodowanie w określonych plikach w postaci: plik.html: kodowanie.
+(*) (html-f) usunie z pliku zadanego jako argument wszystkie tagi HTML, wynik zapisz w pliku o takiej samej nazwie z rozszerzeniem txt.
+Dla potrzeb przetestowania skryptu można skorzystać z wget, aby ściągnąć źródła strony internetowej.
+(*) Komenda tar tf, czy zipinfo -1 pozwala na wyświetlenie zawartości archiwum w krótkiej formie. Napisz skrypt arch-path, który dla zadanego archiwum tar.gz, tgz, zip zastąpi ścieżki względne ścieżkami bezwzględnymi (doda na początek wartość zmiennej środowiskowej PWD). Wynik zostanie zapisany w pliku nazwa-archiwum_bez_rozszerzenia.info. Archiwum jest podane jako argument skryptu. Rodzaj archiwum jest rozpoznawany po rozszerzeniu.
+W przypadku podania ścieżki skrypt wykona się w pętli dla wszystkich plików w podanym katalogu.
+Wyślij na UPEL wszystkie pliki skryptów (spakowane zip) oraz ich źródła umieszczone w jednym pliku pdf.  Część zadań będzie kończona po zajęciach, dlatego też na koniec zajęć wyślij sam plik pdf z działającymi skryptami, a potem doślij uzupełnienie pdf + pliki skryptów.  Zadania bez gwiazdek dają maksymalnie 5 punktów.
