@@ -1,0 +1,3 @@
+set terminal png
+set output "wykres1.png"
+plot cos(x)

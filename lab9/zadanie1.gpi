@@ -1,0 +1,6 @@
+set title "Sinus & Cosinus"
+set multiplot layout 2,2
+plot  cos(x),sin(x)
+set title "Tangens"
+plot  tan(x)
+pause -1 "naciśnij klawisz ENTER"

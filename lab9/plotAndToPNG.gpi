@@ -1,0 +1,7 @@
+## Tryb wsadowy - wyświetlenie na ekranie wykresu funkcji 'y=cos(x)' wraz z jednoczesnym jego zapisem, w formacie PNG, do pliku "wykres1.png"
+## Tworzymy plik o nazwiewykres1.gpi i umieszczamy w nim następujące polecenia:
+plot cos(x)
+pause -1 "naciśnij klawisz ENTER"
+set terminal png
+set output "wykres1.png"
+replot

@@ -1,0 +1,27 @@
+## set terminal png	
+## set output "wykres1.png"  
+set terminal svg enhanced size 1000,700
+set output '3d.svg'
+
+set pm3d #### kolorowanie wykresu 3d
+set multiplot layout 2,2
+
+set title "Sinus"
+splot sin(sqrt(x**2+y**2))
+
+set title "Cosinus"
+splot cos(sqrt(x**2+y*2))
+
+unset pm3d
+set title "Sinus"   
+splot sin(sqrt(x**2+y**2))
+
+set title "Cosinus"
+splot cos(sqrt(x**2+y*2))
+
+###### Wyświetlenie wykresu funkcji sin(x) na ekranie ###########
+set output	                                    # Zamykamy plik
+set terminal wxt	                            # Przywracamy terminal domyślny 
+replot                                              # Ponownie rysujemy wykres, ale tym razem pojawi on się on na ekranie
+
+pause -1 "naciśnij klawisz ENTER"

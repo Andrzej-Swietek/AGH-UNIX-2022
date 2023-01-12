@@ -1,0 +1,14 @@
+set terminal svg enhanced size 1000,700
+set output 'zadanie2.svg'
+
+set xrange[-20:20]
+set yrange[-20:20]
+set title "x^2*y"
+splot x*x*y
+
+###### Wyświetlenie wykresu funkcji sin(x) na ekranie ###########
+set output	                                    # Zamykamy plik
+set terminal wxt	                            # Przywracamy terminal domyślny 
+replot                                              # Ponownie rysujemy wykres, ale tym razem pojawi on się on na ekranie
+
+pause -1 "naciśnij klawisz ENTER"
