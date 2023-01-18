@@ -167,3 +167,12 @@ unblock() {
     chmod 644 $HOME/.todo/*
     echo "Odblokowano bazę."
 }
+
+# main program
+case $1 in
+  "add") add $2 "$3" $4;;
+  "list") list $2;;
+  "del") delete $2;;
+  "move") move $2 $3;;
+  *) echo "Invalid command";;
+esac
