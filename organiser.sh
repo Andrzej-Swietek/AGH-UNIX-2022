@@ -70,3 +70,100 @@ move() {
     fi
 }
 
+old() {
+  case $1 in
+    "move")
+      inc=${2:-0}
+      # Pobranie przestarzałych zadań
+      old_tasks=$(grep -v $(date +%F) ~/.todo/data)
+      # Przesunięcie zadań na dzisiaj i zwiększenie priorytetu
+      while read -r task; do
+        id=$(echo $task | cut -d ':' -f1)
+        date=$(date +%F)
+        task=$(echo $task | cut -d ',' -f2)
+        priority=$(( $(echo $task | cut -d ',' -f3) + inc ))
+        echo "$id: $date, $task, $priority" >> ~/.todo/data
+      done <<< "$old_tasks"
+      # Usunięcie przestarzałych zadań z pliku
+      sed -i "/^[0-9]*: $(date -d "1 day ago" +%F)/d" ~/.todo/data
+      echo "Przeniesiono na dzisiaj $(echo "$old_tasks" | wc -l) zadań."
+      ;;
+    "del")
+      # Pobranie przestarzałych zadań
+      old_tasks=$(grep -v $(date +%F) ~/.todo/data)
+      # Usunięcie przestarzałych zadań z pliku
+      sed -i "/^[0-9]*: $(date -d "1 day ago" +%F)/d" ~/.todo/data
+      echo "Usunięto $(echo "$old_tasks" | wc -l) przestarzałych zadań."
+      ;;
+    "list")
+      sort_param=${2:-p}
+      case $sort_param in
+        "p") old_tasks=$(grep -v $(date +%F) ~/.todo/data | sort -k4 -nr) ;;
+        "d") old_tasks=$(grep -v $(date +%F) ~/.todo/data | sort -k2,2 -k4 -nr) ;;
+      esac
+      echo "ID: TREŚĆ, PRIORYTET"
+      echo "--------------------"
+      echo "$old_tasks"
+      ;;
+    *) echo "Nieznana komenda. Dostępne komendy to: move, del, list." ;;
+  esac
+}
+
+stat() {
+    local end_date=${1:-2099-12-31}
+
+    local tasks=$(find "$HOME/.todo/" -type f -printf '%f\n' | awk -F'.' '{print $2 " " $1}')
+    local task_dates=$(echo "$tasks" | awk '{print $1}' | sort -u)
+
+    echo "DATA: ILE, ŚR_PRI"
+    echo "-----------------"
+
+    for date in $task_dates; do
+        if [ "$date" -gt "$(date +%Y-%m-%d)" ] && [ "$date" -le "$end_date" ]; then
+            local count=$(echo "$tasks" | awk -v d="$date" '$1 == d {count++} END {print count}')
+            local sum=$(echo "$tasks" | awk -v d="$date" '$1 == d {sum+=$2} END {print sum}')
+            local avg=$((sum / count))
+            echo "$date: $count, $avg"
+        fi
+    done
+}
+
+
+import() {
+    local user=$1
+    local n_flag=${2:-""}
+
+    if [ ! -d "/home/$user/.todo" ]; then
+        echo "Brak bazy zadań użytkownika $user."
+        return
+    fi
+
+    if [ ! -r "/home/$user/.todo" ]; then
+        echo "Brak uprawnień do odczytania bazy zadań użytkownika $user."
+        return
+    fi
+
+    local count=0
+    for task in /home/$user/.todo/*; do
+        local id=$(basename "$task" | awk -F '.' '{print $1}')
+        local date=$(basename "$task" | awk -F '.' '{print $2}')
+        local content=$(cat "$task" | awk '{$1=$2=""; print $0}')
+        local priority=$(cat "$task" | awk '{print $3}')
+
+        if [ -z "$n_flag" ] || ([ ! -z "$n_flag" ] && [ "$date" -ge "$(date +%Y-%m-%d)" ]); then
+            echo "$id.$date.$content $priority" >> "$HOME/.todo/$date.$RANDOM"
+            count=$((count+1))
+        fi
+    done
+    echo "Zaimportowano $count zadań od $user."
+}
+
+block() {
+    chmod 600 $HOME/.todo/*
+    echo "Zablokowano bazę."
+}
+
+unblock() {
+    chmod 644 $HOME/.todo/*
+    echo "Odblokowano bazę."
+}
