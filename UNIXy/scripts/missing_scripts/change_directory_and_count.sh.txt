@@ -1,0 +1,13 @@
+#!/bin/bash
+
+CURRENT=$PWD
+
+if [ $# != 1 ]; then
+	echo "Z³a liczba argumentów"
+	exit 1
+fi
+
+cd $1
+NUMBER=`ls -l $PWD | wc -l`
+echo "Plików w tym katalogu jest $NUMBER"
+cd $CURRENT
