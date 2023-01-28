@@ -22,32 +22,32 @@
     Jeśli nie podano żadnych parametrów, to skrypt powinien sprawdzić katalog bieżący. Jeśli podano więcej niż jeden parametr, to skrypt powinien
     sprawdzić pierwszy z nich, a pozostałe parametry wyświetlić z komunikatem "Parametr nadliczbowy."
 
-    *Implementacje:* [PJ] (scripts/piotr-janczyk/count-files-by-type.sh)
+    *Implementacje:* [link] (scripts/piotr-janczyk/count-files-by-type.sh)
 
 0. Oblicz liczbę plików regularnych w podanym katalogu.
 
     > Wejść do katalogu, policzyć pliki regularne, wrócić do katalogu pierwotnego.
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/change_directory_and_count.sh.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/change_directory_and_count.sh.txt)
     
 0. Oblicz liczbę plików regularnych w podanym katalogu.
 
     > Skrypt może dostać (nie musi - wtedy domyślnie katalog domowy) jeden argument będący ścieżką do katalogu. Sprawdza, czy to katalog, i wyświetla
     odpowiedni komunikat jeśli nie. Jeśli tak, to liczy w nim ilość plików regularnych.
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/count_regular_files_in_directory.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/count_regular_files_in_directory.txt)
 
 0. Oblicz liczbę plików regularnych w podanych katalogach.
 
     > Skrypt dostaje ścieżki (względne lub bezwzględne) katalogów i podaje ile jest w nich plików regularnych.
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/count_files_in_directories.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/count_files_in_directories.txt)
 
 0. Oblicz liczbę i sumę rozmiarów plików regularnych w podanym katalogu.
 
     > Wypisanie sumy w bajtach rozmiarów plików regularnych w katalogu podanym jako argument oraz liczby tych plików. W przypadku braku argumentów trzeba przyjąć katalog bieżący.
 
-    *Implementacje:* [PJ] (scripts/piotr-janczyk/count-and-sum-files.sh)
+    *Implementacje:* [link] (scripts/piotr-janczyk/count-and-sum-files.sh)
 
 0. Porównaj liczbę plików w dwóch podanych katalogach.
 
@@ -55,33 +55,33 @@
     o tym uzytkownika. Jeśli podano więcej niż dwa parametry, to skrypt powinien zadziałać dla pierwszych dwóch, a pozostałe parametry wyświetlić z komunikatem
     "Parametr nadliczbowy". Gdy parametrów bedzie za mało, to również powinien się pojawić odpowiedni komunikat.
 
-    *Implementacje:* [PJ] (scripts/piotr-janczyk/compare-number-of-files.sh)
+    *Implementacje:* [link] (scripts/piotr-janczyk/compare-number-of-files.sh)
 
 0. Oblicz sumę rozmiarów plików regularnych w podanym katalogu.
 
     > Skrypt liczy łączny rozmiar plików regularnych w katalogu podanym jako parametr, a w razie braku parametru sprawdza katalog bieżący.
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/regular_files_sizes_sum_in_directory.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/regular_files_sizes_sum_in_directory.txt)
 
 0. Oblicz sumę rozmiarów plików regularnych w podanym katalogu.
 
     > Proszę napisać skrypt, który jako argument otrzymuje ścieżkę do katalogu (jeżeli nie, ma ją pobrać od użytkownika). Jeżeli podany argument nie jest
     adresem katalogu, ma wypisać odpowiedni komunikat. W przeciwnym razie ma podać rozmiar w bajtach wszystkich plików regularnych znajdujących się w tym katalogu.
 
-    *Implementacje:* [by nuk] (scripts/count_bytes_of_files_in_given_dirs.sh)
+    *Implementacje:* [link] (scripts/count_bytes_of_files_in_given_dirs.sh)
 
 0. Oblicz sumę rozmiarów plików (nie folderów) w podanym katalogu.
 
     > Napisz skrypt, który jako argument przyjmuje ściężkę dostępu do katalogu, jeśli nie dostanie argumentu, to się o niego upomina; jak dostanie, to sprawdza, czy to jest katalog, a jeśli nie, to o tym informuje; jak jest w katalogu, to sumuje wielkości wszystkich plików w tym katalogu (folderów już nie)
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/files_sizes_sum_no_directories.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/files_sizes_sum_no_directories.txt)
 
 0. Oblicz sumę rozmiarów plików regularnych w podanych katalogach.
 
     > Skrypt dostaje (jak nie - ma się dopytać) ścieżki względne lub bezwzględne do katalogów i dla każdego katalogu z osobna ma podać
     ile bajtów w sumie zajmują znajdujące się w nim pliki regularne.
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/directories_and_regular_files_sizes_sums.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/directories_and_regular_files_sizes_sums.txt)
 
 0. Oblicz ilość miejsca zajętego przez pliki w podanym katalogu.
 
@@ -98,14 +98,14 @@
     nazwa kopii powinna brzmieć: nazwapliku.bak. Jeśli podano więcej niż dwa parametry, to skrypt powinien zadziałać dla pierwszych dwóch, a pozostałe parametry
     wyświetlić z komunikatem "Parametr nadliczbowy". Gdy parametrów bedzie za malo, to również powinien pojawić się odpowiedni komunikat.
 
-    *Implementacje:* [PJ](scripts/piotr-janczyk/copy-file.sh)
+    *Implementacje:* [link](scripts/piotr-janczyk/copy-file.sh)
 
 0. Oblicz liczbę wystąpień wzorców w pliku.
 
     > Napisz skrypt, który dla pliku podanego jako pierwszy parametr wyswietla liczę wierszy, w których występuje wzorzec (wzorce) podany jako drugi i ew. następne argumenty.
     Ilość wzorców w wywołaniu powinna być dowolna. Składnia "Ile plik wzorzec1 [wzorzec2 wzorzec3 ....]".
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/count_pattern_lines_in_file.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/count_pattern_lines_in_file.txt)
 
 0. Monitoruj procentową zajętość katalogu domowego.
 
@@ -113,7 +113,7 @@
     procentową /home danego użytkownika. Następnie tę liczbę porównujemy z argumentem skryptu (zakładamy, że jest on z zakresu 1-100, jak procent) w pętli nieskończonej.
     Pętla sprawdza cały czas, czy zajetość /home nie przekracza podanego przez użytkownika procentu. Jeżeli tak się stanie, to wypisuje stosowny komunikat.
 
-    *Implementacje:* [morgul] (scripts/missing_scripts/check_percent_size_of_home_directory.txt)
+    *Implementacje:* [link] (scripts/missing_scripts/check_percent_size_of_home_directory.txt)
 
 #### B. Użytkownicy
 
@@ -122,7 +122,7 @@
     > Skrypt nie dostaje żadnych parametrów, ma wypisać 5 kolumnę pliku /etc/passwd wszystkich aktualnie zalogowanych użytkowników
 
     *Implementacje:*
-    [by nuk](scripts/describe_logged_in_users.sh)
+    [link](scripts/describe_logged_in_users.sh)
 
 0. Wypisz opisy zalogowanych użytkowników
 
@@ -167,7 +167,7 @@
     > Napisz skrypt wypisujący RSS wszystkich procesów zalogowanych użytkowników
 
     *Implementacje:*
-    [by nuk](scripts/total_rss_per_logged_in_user.sh)
+    [link](scripts/total_rss_per_logged_in_user.sh)
 
 0. Oblicz sumę VSZ procesów danego użytkownika
 
@@ -187,14 +187,14 @@
     > Skrypt co 2 sekundy wypisuje listę zalogowanych użytkowników razem z liczbą procesów które zostały przez nich uruchomione. Przerwanie wypisywania na komendę Ctrl+C i wypisanie daty.
 
     *Implementacje:*
-    [by nuk](scripts/n_processes_per_logged_in_user.sh)
+    [link](scripts/n_processes_per_logged_in_user.sh)
 
 0. Monitoruj długo pracujące procesy
 
     > Co kilka sekund (nie było sprecyzowane co ile) w nieskończonej pętli wypisuje liczbę aktualnie uruchomionych procesów, które zużyły więcej niż t sekund czasu procesora.  Jeżeli skrypt został uruchomiony z parametrem, to parametr jest liczbą t.  Jeżeli nie, to t ma być domyślnie ustawione na 10.  Skrypt jest kończony przez ubicie (ctrl+c), ale przed ubiciem powinien wypisać bieżącą datę.
 
     *Implementacje:*
-    [by nuk (Java naming by lared)](scripts/count_processes_running_for_longer_than_seconds.sh)
+    [link](scripts/count_processes_running_for_longer_than_seconds.sh)
 
 0. Wypisz czas procesora danego procesu
 
@@ -220,7 +220,7 @@
     > Napisz skrypt, który jako argument przyjmuje nazwę użytkownika (w razie braku argumentu upomina się, w razie większej ilości argumentów bierze tylko pierwszy) i zmienia parametr nice wszystkich procesów tego użytkownika na 0.
 
     *Implementacje:*
-    [by nuk](scripts/renice_all_user_processes_to_0.sh)
+    [link](scripts/renice_all_user_processes_to_0.sh)
 
 0. Zmień nice wszystkich procesów danego użytkownika na 5
 
